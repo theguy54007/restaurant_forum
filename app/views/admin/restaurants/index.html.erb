@@ -12,21 +12,19 @@
       <table class="table table-condensed">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Name></th>
-            <th>#</th>
+            <th>No</th>
+            <th>Name</th>
+            <th>Option</th>
           </tr>
         </thead>
         <tbody>
           <% @restaurants.each do |restaurant| %>
           <tr>
             <th scope="row"><%= restaurant.id%></th>
-            <td><%= restaurant.name %></td>
-            <td><%= restaurant.name %></td>
+            <td><%= link_to restaurant.name, admin_restaurant_path(restaurant) %></td>
             <td>
-              <%= link_to 'Show', admin_restaurant_path(restaurant) %>
-              <%= link_to 'Edit', edit_admin_restaurant_path(restaurant) %>
-              <%= link_to 'Delete', admin_restaurant_path(restaurant), method: :delete, data: {confirm:"Are you sure?"} %>
+              <%= link_to 'Edit', edit_admin_restaurant_path(restaurant), class: "btn btn-success" %>
+              <%= link_to 'Delete', admin_restaurant_path(restaurant), class: "btn btn-danger", method: :delete, data: {confirm:"Are you sure?"} %>
             </td>
           </tr>
           <% end %>
