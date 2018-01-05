@@ -17,9 +17,6 @@ Rails.application.routes.draw do
 
       post :like
       post :unlike
-
-
-
     end
 
 
@@ -30,6 +27,7 @@ Rails.application.routes.draw do
   root "restaurants#index"
 
   resources :followships, only: [:create, :destroy]
+  resources :friendships, only: [:create, :destroy]
 
   namespace :admin do
     resources :restaurants do
