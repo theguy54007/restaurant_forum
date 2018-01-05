@@ -10,14 +10,70 @@
         <div class="col-md-9 col-sm-8">
           <h2><%= @user.name %></h2>
           <p><strong><%= @user.email %></strong></p>
+          <ul class="list-unstyle list-inline">
+            <li><strong><%= @commented_restaurants.count%></strong> 評論的餐廳</li>
+            <li><strong><%= @favorited_restaurants.count%></strong> 收藏的餐廳</li>
+            <li><strong><%= @followings.count%></strong> Followings</li>
+            <li><strong><%= @followers.count%></strong> Followers</li>
+          </ul>
           <div><%= simple_format @user.intro %></p></div>
           <% if @user.email == current_user.email %>
             <%= link_to 'Edit Profile', edit_user_path(@user), class: "btn btn-primary"%>
           <% end %>
         </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <br>
+
+    <!--followings & followers-->
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><strong><%= @followings.count%></strong>Followings</h3>
+        </div>
+        <ul class="list-group">
+          <% @followings.each do |follow| %>
+            <li class="list-group-item">
+              <%= link_to user_path(follow) do %>
+                <% if follow.avatar?%>
+                  <%= image_tag follow.avatar, height: 30, width: 30, class: "img-circle"%>
+                <% else %>
+                  <%= image_tag "http://fakeimg.pl/270x180/BBBBBB/", height: 30, width: 30, class: "img-circle"%>
+                <% end %>
+                <h5><%= follow.name %></h5>
+              <% end %>
+            <% end %>
+            </li>
+          </ul>
+        </div>
+
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">評論的餐廳</h3>
+            <h3 class="panel-title"><%= @followers.count%></strong> Followers</h3>
+          </div>
+          <ul class="list-group">
+            <% @followers.each do |follower| %>
+              <li class="list-group-item">
+                <%= link_to user_path(follower) do %>
+                  <% if follower.avatar?%>
+                    <%= image_tag follower.avatar, height: 30, width: 30, class: "img-circle"%>
+                  <% else %>
+                    <%= image_tag "http://fakeimg.pl/270x180/BBBBBB/", height: 30, width: 30, class: "img-circle"%>
+                  <% end %>
+                  <h5><%= follower.name %></h5>
+                <% end %>
+              <% end %>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!--評論餐廳-->
+      <div class="col-md-8">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong><%= @commented_restaurants.count%></strong> 評論的餐廳</h3>
           </div>
             <div class="panel-body">
               <% @commented_restaurants.each do |restaurant| %>
@@ -36,7 +92,28 @@
             <% end %>
           </div>
         </div>
+        <!--收藏餐廳-->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong><%= @favorited_restaurants.count%></strong> 收藏餐廳</h3>
+          </div>
+            <div class="panel-body">
+              <% @favorited_restaurants.each do |restaurant| %>
+                <%= link_to restaurant_path(restaurant) do %>
+              <div class="my-restaurant">
+                <div>
+                  <% if restaurant.image?%>
+                    <%= image_tag restaurant.image, class: "img-responsive img-rounded"%>
+                  <% else %>
+                    <%= image_tag "http://fakeimg.pl/270x180/BBBBBB/", class: "img-responsive img-rounded"%>
+                  <% end %>
+                </div>
+                <h5><%= restaurant.name %></h5>
+              </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
       </div>
-    </div>
   </div>
 </div>
