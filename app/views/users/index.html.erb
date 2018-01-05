@@ -34,9 +34,7 @@
           <h5><%= link_to user.name, user_path(user) %></h5>
           <% if user != current_user%>
             <%= render partial: "shared/follow", locals: {user: user}%>
-            <%= link_to "Unfriend", friendship_path(user), method: :delete, class:"btn btn-link"%>
-            <%= link_to "Friend", friendships_path(friend_id: user), method: :post, class:"btn btn-default"%>
-            <!--%= render partial: "shared/friend", locals: {user: user}%-->
+            <%= render partial: "shared/friend", locals: {user: user}%>
           <% end %>
         </div>
       </div>
