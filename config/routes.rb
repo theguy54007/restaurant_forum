@@ -25,9 +25,11 @@ Rails.application.routes.draw do
 
 
   end
-  resources :users, only: [:show, :edit, :update]
+  resources :users, only: [:index, :show, :edit, :update]
   resources :categories, only: :show
   root "restaurants#index"
+
+  resources :followships, only: [:create, :destroy]
 
   namespace :admin do
     resources :restaurants do
