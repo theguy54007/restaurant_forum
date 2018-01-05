@@ -27,22 +27,26 @@
     <br>
 
     <!--followings & followers-->
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title"><strong><%= @followings.count%></strong>Followings</h3>
+          <h3 class="panel-title"><strong><%= @followings.count%></strong> Followings</h3>
         </div>
-        <ul class="list-group">
+        <ul class="list-group text-center">
           <% @followings.each do |follow| %>
             <li class="list-group-item">
               <%= link_to user_path(follow) do %>
                 <% if follow.avatar?%>
-                  <%= image_tag follow.avatar, height: 30, width: 30, class: "img-circle"%>
+                  <%= image_tag follow.avatar, height: 50, width: 50, class: "img-circle"%>
                 <% else %>
-                  <%= image_tag "http://fakeimg.pl/270x180/BBBBBB/", height: 30, width: 30, class: "img-circle"%>
+                  <%= image_tag "http://fakeimg.pl/270x180/BBBBBB/", height: 50, width: 50, class: "img-circle"%>
                 <% end %>
-                <h5><%= follow.name %></h5>
+                <h5>
+                  <%= follow.name %>
+                  <%= link_to 'Unfollow', followship_path(follow), method: :delete, class:"btn btn-link"%>
+                </h5>
               <% end %>
+
             <% end %>
             </li>
           </ul>
@@ -52,14 +56,14 @@
           <div class="panel-heading">
             <h3 class="panel-title"><%= @followers.count%></strong> Followers</h3>
           </div>
-          <ul class="list-group">
+          <ul class="list-group text-center">
             <% @followers.each do |follower| %>
               <li class="list-group-item">
                 <%= link_to user_path(follower) do %>
                   <% if follower.avatar?%>
-                    <%= image_tag follower.avatar, height: 30, width: 30, class: "img-circle"%>
+                    <%= image_tag follower.avatar, height: 50, width: 50, class: "img-circle"%>
                   <% else %>
-                    <%= image_tag "http://fakeimg.pl/270x180/BBBBBB/", height: 30, width: 30, class: "img-circle"%>
+                    <%= image_tag "http://fakeimg.pl/270x180/BBBBBB/", height: 50, width: 50, class: "img-circle"%>
                   <% end %>
                   <h5><%= follower.name %></h5>
                 <% end %>
