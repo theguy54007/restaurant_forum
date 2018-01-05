@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
     collection do
       get :feeds
+      get :ranking
     end
 
     member do
@@ -16,6 +17,8 @@ Rails.application.routes.draw do
 
       post :like
       post :unlike
+
+
 
     end
 
