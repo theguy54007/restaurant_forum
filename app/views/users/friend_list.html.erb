@@ -15,25 +15,37 @@
           <% end %>
           <%end%>
       </div>
-      <div class="col-md-9">
+      <div class="col-md-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <div class="panel-title"><%= friend.name %></div>
+            <div class="panel-title">
+              <%= link_to friend.name, user_path(friend)%>
+              <%= render partial:"shared/friend", locals:{user: friend}%>
+            </div>
           </div>
           <div class="panel-body">
             <p><%= truncate(friend.intro, length: 200)%></p>
-            <h3>已評論餐廳</h3>
+            <h5>已評論 <%= friend.comments.count%> 餐廳</h5>
             <ul class="list-unstyle list-inline">
               <% friend.comments.each do |comment| %>
               <li><%= link_to comment.restaurant.name, restaurant_path(comment.restaurant)%></li>
               <% end %>
             </ul>
             <hr>
+            <h5>已收藏 <%= friend.favorites.count%> 餐廳</h5>
+            <ul class="list-unstyle list-inline">
+              <% friend.favorites.each do |favorite| %>
+              <li><%= link_to favorite.name, restaurant_path(favorite)%></li>
+              <% end %>
+            </ul>
+            <hr>
+            <h5>有 <%= friend.all_friend.count%> 朋友</h5>
+            <ul class="list-unstyle list-inline">
+              <% friend.all_friend.each do |friend| %>
+              <li><%= link_to friend.name, user_path(friend)%></li>
+              <% end %>
+            </ul>
 
-            <div>
-              <%= link_to "Show", user_path(friend), class:"btn btn-primary"%>
-              <%= render partial:"shared/friend", locals:{user: friend}%>
-            </div>
           </div>
         </div>
       </div>
