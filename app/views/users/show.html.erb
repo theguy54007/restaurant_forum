@@ -19,6 +19,7 @@
           <div><%= simple_format @user.intro %></p></div>
           <% if @user.email == current_user.email %>
             <%= link_to 'Edit Profile', edit_user_path(@user), class: "btn btn-primary"%>
+            <%= link_to 'My friend', friend_list_user_path(@user), class: "btn btn-default"%>
           <% end %>
         </div>
       </div>
@@ -121,10 +122,10 @@
 <!--好友名單-->
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title"><strong><%= current_user.all_friend.count%></strong> 好友</h3>
+            <h3 class="panel-title"><strong><%= @user.all_friend.count%></strong> 好友</h3>
           </div>
             <div class="panel-body">
-              <% current_user.all_friend.each do |friend| %>
+              <% @user.all_friend.each do |friend| %>
                 <%= link_to user_path(friend) do %>
               <div class="my-restaurant">
                 <div>
