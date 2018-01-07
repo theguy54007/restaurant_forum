@@ -15,7 +15,7 @@
           <% end %>
           <%end%>
       </div>
-      <div class="col-md-12">
+      <div class="col-md-15">
         <div class="panel panel-default">
           <div class="panel-heading">
             <div class="panel-title">
@@ -35,7 +35,7 @@
             <h5>已收藏 <%= friend.favorites.count%> 餐廳</h5>
             <ul class="list-unstyle list-inline">
               <% friend.favorites.each do |favorite| %>
-              <li><%= link_to favorite.name, restaurant_path(favorite)%></li>
+              <li><%= link_to favorite.restaurant.name, restaurant_path(favorite)%></li>
               <% end %>
             </ul>
             <hr>
@@ -45,7 +45,6 @@
               <li><%= link_to friend.name, user_path(friend)%></li>
               <% end %>
             </ul>
-
           </div>
         </div>
       </div>
