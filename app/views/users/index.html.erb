@@ -26,11 +26,12 @@
       <% @users.each do |user| %>
       <div class="col-md-3 col-sm-4 col-xs-6 ">
         <div class="following-item">
-          <% if user.avatar?%>
-              <%= image_tag user.avatar, class: "img-responsive img-rounded"%>
-          <% else %>
-              <%= image_tag "http://fakeimg.pl/270x180/BBBBBB/", class: "img-responsive img-rounded"%>
-          <% end %>
+          <% for id in 0..20 %>
+            <% if image_path(user.avatar).include?('/'+ 'user'+id.to_s+'.jpg') %>
+              <%= image_tag('/avatar/'+'user'+id.to_s+'.jpg', class: "img-responsive img-rounded") %>
+            <% end %>
+          <%end%>
+          
           <h5><%= link_to user.name, user_path(user) %></h5>
           <% if user != current_user%>
             <%= render partial: "shared/follow", locals: {user: user}%>

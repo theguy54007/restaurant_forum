@@ -4,7 +4,11 @@
       <div class="page-header">
         <div class="col-md-3 col-sm-4">
           <div class="text-center">
-            <%= image_tag @user.avatar, class:"img-responsive img-rounded"%>
+            <% for id in 0..20 %>
+              <% if image_path(@user.avatar).include?('/'+ 'user'+id.to_s+'.jpg') %>
+                <%= image_tag('/avatar/'+'user'+id.to_s+'.jpg', class: "img-responsive img-rounded") %>
+              <% end %>
+            <%end%>
           </div>
         </div>
         <div class="col-md-9 col-sm-8">
@@ -37,11 +41,12 @@
           <% @followings.each do |follow| %>
             <li class="list-group-item">
               <%= link_to user_path(follow) do %>
-                <% if follow.avatar?%>
-                  <%= image_tag follow.avatar, height: 50, width: 50, class: "img-circle"%>
-                <% else %>
-                  <%= image_tag "http://fakeimg.pl/270x180/BBBBBB/", height: 50, width: 50, class: "img-circle"%>
-                <% end %>
+                <% for id in 0..20 %>
+                  <% if image_path(follow.avatar).include?('/'+ 'user'+id.to_s+'.jpg') %>
+                    <%= image_tag('/avatar/'+'user'+id.to_s+'.jpg', height: 80, width: 80, class: "img-circle") %>
+                  <% end %>
+                <%end%>
+
                 <h5>
                   <%= follow.name %>
                   <%= link_to 'Unfollow', followship_path(follow), method: :delete, class:"btn btn-link"%>
@@ -61,11 +66,12 @@
             <% @followers.each do |follower| %>
               <li class="list-group-item">
                 <%= link_to user_path(follower) do %>
-                  <% if follower.avatar?%>
-                    <%= image_tag follower.avatar, height: 50, width: 50, class: "img-circle"%>
-                  <% else %>
-                    <%= image_tag "http://fakeimg.pl/270x180/BBBBBB/", height: 50, width: 50, class: "img-circle"%>
-                  <% end %>
+                  <% for id in 0..20 %>
+                    <% if image_path(follower.avatar).include?('/'+ 'user'+id.to_s+'.jpg') %>
+                      <%= image_tag('/avatar/'+'user'+id.to_s+'.jpg', height: 80, width: 80, class: "img-circle") %>
+                    <% end %>
+                  <%end%>
+
                   <h5><%= follower.name %></h5>
                 <% end %>
               <% end %>
@@ -85,12 +91,13 @@
                 <%= link_to restaurant_path(restaurant) do %>
               <div class="my-restaurant">
                 <div>
-                <% if restaurant.image?%>
-                    <%= image_tag restaurant.image, class: "img-responsive img-rounded"%>
-                <% else %>
-                    <%= image_tag "http://fakeimg.pl/270x180/BBBBBB/", class: "img-responsive img-rounded"%>
-                <% end %>
-              </div>
+                  <% for id in 0..9 %>
+                    <% if image_path(restaurant.image).include?('/'+id.to_s+'.jpg') %>
+                      <%= image_tag('/seed_img/'+id.to_s+'.jpg', class: "img-responsive img-rounded") %>
+                    <% end %>
+                  <%end%>
+
+                </div>
                 <h5><%= restaurant.name %></h5>
               </div>
               <% end %>
@@ -107,11 +114,12 @@
                 <%= link_to restaurant_path(restaurant) do %>
               <div class="my-restaurant">
                 <div>
-                  <% if restaurant.image?%>
-                    <%= image_tag restaurant.image, class: "img-responsive img-rounded"%>
-                  <% else %>
-                    <%= image_tag "http://fakeimg.pl/270x180/BBBBBB/", class: "img-responsive img-rounded"%>
-                  <% end %>
+                  <% for id in 0..9 %>
+                    <% if image_path(restaurant.image).include?('/'+id.to_s+'.jpg') %>
+                      <%= image_tag('/seed_img/'+id.to_s+'.jpg', class: "img-responsive img-rounded") %>
+                    <% end %>
+                  <%end%>
+
                 </div>
                 <h5><%= restaurant.name %></h5>
               </div>
@@ -129,11 +137,12 @@
                 <%= link_to user_path(friend) do %>
               <div class="my-restaurant">
                 <div>
-                  <% if friend.avatar?%>
-                    <%= image_tag friend.avatar, class: "img-responsive img-rounded"%>
-                  <% else %>
-                    <%= image_tag "http://fakeimg.pl/270x180/BBBBBB/", class: "img-responsive img-rounded"%>
-                  <% end %>
+                  <% for id in 0..20 %>
+                    <% if image_path(friend.avatar).include?('/'+ 'user'+id.to_s+'.jpg') %>
+                      <%= image_tag('/avatar/'+'user'+id.to_s+'.jpg', class: "img-responsive img-rounded") %>
+                    <% end %>
+                  <%end%>
+
                 </div>
                 <h5><%= friend.name %></h5>
               </div>

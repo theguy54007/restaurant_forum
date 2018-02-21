@@ -5,7 +5,12 @@
       <h1><%= @restaurant.name %></h1>
     </div>
     <div class="col-md-4">
-          <%= image_tag @restaurant.image, class: "img-responsive center-block" %>
+      <% for id in 0..9 %>
+        <% if image_path(restaurant.image).include?('/'+id.to_s+'.jpg') %>
+          <%= image_tag('/seed_img/'+id.to_s+'.jpg', class: "img-responsive center-block") %>
+        <% end %>
+      <%end%>
+          
           <br>
           <div class="well">
             <ul class="list-unstyled">
