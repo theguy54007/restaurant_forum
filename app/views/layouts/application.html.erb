@@ -28,7 +28,13 @@
               <% if current_user.admin? %>
                 <li><%= link_to "<span class= 'glyphicon glyphicon-cog'></span> Admin後臺".html_safe, admin_restaurants_path %></li>
               <% end %>
-            <li><p class="navbar-text"><span class= 'glyphicon glyphicon-heart'></span> <%= current_user.email %></p></li>
+            <li>
+              <% for id in 0..20 %>
+                  <% if image_path(current_user.avatar).include?('/'+ 'user'+id.to_s+'.jpg') %>
+                    <%= image_tag('/avatar/'+'user'+id.to_s+'.jpg', height: 60, width: 60) %>
+                  <% end %>
+                <%end%>
+              <%= current_user.name %></li>
             <li><%= link_to("<span class= 'glyphicon glyphicon-log-out'></span> 登出".html_safe, destroy_user_session_path, method: :delete) %></li>
             <li><%= link_to("<span class= 'glyphicon glyphicon-wrench'></span> 修改密碼".html_safe, edit_user_registration_path) %></li>
             <li><%= link_to"<span class= 'glyphicon glyphicon-user'></span> Profile".html_safe, user_path(current_user) %></li>
