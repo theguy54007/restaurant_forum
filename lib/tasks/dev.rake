@@ -67,7 +67,7 @@ namespace :dev do
   task fake_like: :environment do
     Like.delete_all
      Restaurant.all.each do |restaurant|
-       30.times do |i|
+       10.times do |i|
          like = User.all.sample
          if not restaurant.is_liked?(like)
            restaurant.likes.create!(
