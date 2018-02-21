@@ -1,6 +1,6 @@
 namespace :dev do
   task fake_restaurant: :environment do
-    Restaurant.destroy_all
+    Restaurant.delete_all
 
     500.times do |i|
       Restaurant.create!(name: FFaker::Name.first_name,
@@ -8,7 +8,8 @@ namespace :dev do
         tel: FFaker::PhoneNumber.short_phone_number,
         address: FFaker::Address.street_address,
         description: FFaker::Lorem.paragraph,
-        category: Category.all.sample
+        category: Category.all.sample,
+        image: File.open("#{Rails.root}/public/seed_img/#{rand(0..9)}.jpg")
       )
     end
     puts "have created fake restaurants"
@@ -18,11 +19,13 @@ namespace :dev do
   task fake_user: :environment do
     User.where(role: nil).delete_all
     20.times do |i|
+      file = File.open("#{Rails.root}/public/avatar/user#{i+1}.jpg")
       user_name = FFaker::Name.first_name
       User.create!(
       name: user_name,
       email: "#{user_name}@example.com",
-      password: "12345678"
+      password: "12345678",
+      avatar: file
       )
     end
     puts "have created fake users"
@@ -47,11 +50,14 @@ namespace :dev do
 
   task fake_favorite: :environment do
     Favorite.delete_all
-    User.all.each do |user|
+    Restaurant.all.each do |restaurant|
       10.times do |i|
-        user.favorites.create!(
-        restaurant: Restaurant.all.sample,
+        favorite = User.all.sample
+        if not restaurant.is_favorited?(favorite)
+        restaurant.favorites.create!(
+        user: favorite,
         )
+        end
       end
     end
       puts "have created fake favorite"
@@ -59,25 +65,33 @@ namespace :dev do
   end
 
   task fake_like: :environment do
-    User.all.each do |user|
-      10.times do |i|
-        user.likes.create!(
-        restaurant: Restaurant.all.sample,
-        )
-      end
-    end
-      puts "have created fake like"
-      puts "now you have #{Like.count} liked restaurants"
+    Like.delete_all
+     Restaurant.all.each do |restaurant|
+       30.times do |i|
+         like = User.all.sample
+         if not restaurant.is_liked?(like)
+           restaurant.likes.create!(
+           user:  like
+         )
+
+
+         end
+       end
+     end
+      puts "now you have #{Like.count} data created"
   end
 
   task fake_follow: :environment do
     Followship.delete_all
     puts "you have destroy all followship"
     User.all.each do |user|
-      3.times do |i|
-        user.followships.create!(
-        following: User.all.sample,
+      30.times do |i|
+        following = User.all.sample
+        if not user.following?(following)
+          user.followships.create!(
+          following: following
         )
+        end
       end
     end
       puts "now you have #{Followship.count} data created"
@@ -87,10 +101,13 @@ namespace :dev do
     Friendship.delete_all
     puts "you have destroy all friendship"
     User.all.each do |user|
-      3.times do |i|
+      5.times do |i|
+        friend = User.all.sample
+        if not user.friend?(friend)
         user.friendships.create!(
-        friend: User.all.sample,
+        friend: friend,
         )
+      end
       end
     end
       puts "now you have #{Friendship.count} data created"
@@ -100,7 +117,12 @@ namespace :dev do
     User.where(name: nil).delete_all
     puts "now you have destroy no name user"
   end
-
-
+  task fake_image: :environment do
+    Restaurant.all.each do |restaurant|
+      restaurant.image.create!(
+      image: File.open(Rails.root.join("public/seed_img/#{rand(0..9)}.jpg")),
+      )
+    end
+  end
 
 end
