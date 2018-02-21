@@ -21,16 +21,17 @@
       <div class="page header">
         <h1>Top10人氣餐廳 <small>（收藏數最高）</small></h1>
       </div>
-      <%@most_favorited.each do |most|%>
+      <%@restaurants.each do |most|%>
       <div class="ranking-item">
         <div class="col-md-3">
-          <% link_to restaurant_path(most) do%>
-          <% if most.image?%>
-              <%= image_tag most.image, class: "img-responsive img-rounded"%>
-          <% else %>
-              <%= image_tag "http://fakeimg.pl/270x180/BBBBBB/", class: "img-responsive img-rounded"%>
-          <% end %>
+          <%= link_to restaurant_path(most) do%>
+          <% for id in 0..9 %>
+            <% if image_path(most.image).include?('/'+id.to_s+'.jpg') %>
+              <%= image_tag('/seed_img/'+id.to_s+'.jpg', class: "img-responsive img-rounded") %>
+            <% end %>
           <%end%>
+
+        <%end%>
       </div>
       <div class="col-md-9">
         <h4>
